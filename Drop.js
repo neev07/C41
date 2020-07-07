@@ -1,30 +1,40 @@
 class Drop
 {
-	constructor(x,y,r){
-		var options={
-			isStatic:false,
-        }
-      
-		this.x=x;
-		this.y=y;
-		this.r=r
-		this.body=Bodies.circle(this.x, this.y, this.r/2, options);
-		World.add(world, this.body);
-    }	
-    update(){
-        if(this.body.position.y>height) {
-            Matter.Body.setPosition(this.body,{x:random(0,400), y:random(0,400)})
-        }
-    }
-	display(){
-        var ballpos=this.body.position;	
-        push();
-        translate(ballpos.x, ballpos.y);
-        rectMode(CENTER)
-        strokeWeight(3);
-        ellipse(0,0,this.r, this.r);
-        pop();
-        
-	}
+ constructor()
+ {
+     var options= {
+         restitution:0.6,
+         density:0.05
+     }
+     this.yspeed=random(15,25);
+     this.body=Bodies.circle(random(10,400),random(-200,-100),2,options);
+
+     World.add(world,this.body);
+ }
+
+ fall()
+ {
+    this.y=this.y+this.yspeed;
+    if(this.y>390)
+    this.y=random(-200,-100);
+    
+ }
+
+ display()
+ {
+     var pos=this.body.position;
+     push();
+     translate(pos.x,pos.y);
+     rotate(this.body.angle);
+     ellipseMode(RADIUS);
+     ellipse(0,0,2);
+     pop();
+ }
+
+
+
+
+
+
 
 }
